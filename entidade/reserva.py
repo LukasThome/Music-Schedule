@@ -2,7 +2,7 @@ from entidade.cliente import Cliente
 from entidade.banda import Banda
 
 
-class Emprestimo:
+class Reserva:
   def __init__(self, cliente: Cliente, banda: Banda, codigo: int):
     if (isinstance(banda, Banda)):
         self.__banda = banda

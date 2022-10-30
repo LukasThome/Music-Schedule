@@ -1,14 +1,14 @@
 from limite.tela_sistema import TelaSistema
 from controle.controlador_clientes import ControladorClientes
 from controle.controlador_bandas import ControladorBandas
-from controle.controlador_emprestimo import ControladorEmprestimos
+from controle.controlador_reserva import ControladorReservas
 
 class ControladorSistema:
 
     def __init__(self):
         self.__controlador_bandas = ControladorBandas(self)
         self.__controlador_clientes = ControladorClientes(self)
-        self.__controlador_emprestimos = ControladorEmprestimos(self)
+        self.__controlador_reservas = ControladorReservas(self)
         self.__tela_sistema = TelaSistema()
 
     @property
@@ -29,15 +29,15 @@ class ControladorSistema:
         # Chama o controlador de clientes
         self.__controlador_clientes.abre_tela()
 
-    def cadastra_emprestimos(self):
-        self.__controlador_emprestimos.abre_tela()
-        # Chama o controlador de Emprestimos
+    def cadastra_reservas(self):
+        self.__controlador_reservas.abre_tela()
+        # Chama o controlador de ReserControladorReservas
 
     def encerra_sistema(self):
         exit(0)
 
     def abre_tela(self):
-        lista_opcoes = {1: self.cadastra_bandas, 2: self.cadastra_clientes, 3: self.cadastra_emprestimos,
+        lista_opcoes = {1: self.cadastra_bandas, 2: self.cadastra_clientes, 3: self.cadastra_reservas,
                         0: self.encerra_sistema}
 
         while True:
