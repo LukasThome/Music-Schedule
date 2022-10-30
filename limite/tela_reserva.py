@@ -5,7 +5,7 @@ class TelaReserva():
     print("Escolha a opcao")
     print("1 - Fazer Reserva")
     print("2 - Listar Reservas")
-    print("3 - Devolver Reserva")
+    print("3 - Cancelar Reserva")
     print("0 - Retornar")
 
     opcao = int(input("Escolha a opcao: "))
@@ -15,10 +15,9 @@ class TelaReserva():
   def pega_dados_reserva(self):
     print("-------- DADOS RESERVA ----------")
     cpf = input("CPF Cliente: ")
-    telefone = input("Telefone Banda: ")
     numero_pessoas = input("Número de Pessoas: ")
 
-    return {"cpf": cpf, "telefone": telefone, "numero_pessoas": numero_pessoas}
+    return {"cpf": cpf, "numero_pessoas": numero_pessoas}
 
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def mostra_reserva(self, dados_reserva):
