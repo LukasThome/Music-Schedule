@@ -1,6 +1,7 @@
 from limite.tela_reserva import TelaReserva
 from entidade.reserva import Reserva
 
+
 from random import randint
 
 #ATENÇAO! Nesta classe não estão sendo tratados todos os possíveis problemas.
@@ -20,21 +21,28 @@ class ControladorReservas():
 
   #Sugestao: listar apenas os bandas que não estão emprestados
   def incluir_reserva(self):
-    self.__controlador_sistema.controlador_clientes.lista_clientes()
+    
+    #faz um print de todos os clientes
+    #self.__controlador_sistema.controlador_clientes.lista_clientes()
+    
+    self.__controlador_sistema.controlador_agenda.lista_agenda()
+
     dados_reserva = self.__tela_reserva.pega_dados_reserva()
 
+    dia_semana = dados_reserva["dia_semana"]
     cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf(dados_reserva["cpf"])
     numero_pessoas = int(dados_reserva["numero_pessoas"])
 
 
     codigo = randint(0, 100)
-    reserva = Reserva(cliente, codigo, numero_pessoas)
+    reserva = Reserva(cliente, codigo, numero_pessoas, dia_semana)
     self.__reservas.append(reserva)
 
   #Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
   def lista_reserva(self):
     for r in self.__reservas:
       self.__tela_reserva.mostra_reserva({"codigo": r.codigo,
+                                                "dia_semana": r.dia_semana,
                                                 "nome_cliente": r.cliente.nome,
                                                 "cpf_cliente": r.cliente.cpf,
                                                 "numero_pessoas": r.numero_pessoas

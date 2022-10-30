@@ -32,7 +32,9 @@ class ControladorAgenda():
         
         #self.__agenda.update({dia_semana, 'Sirigaita'})
 
-    def mostra_agenda(self):
+    def lista_agenda(self):
+        print("\n")
+        print("AGENDA SEMANAL")
         for r in self.__agendas:
             #chama o metodo da tela_agenda
             self.__tela_agenda.mostra_agenda({"dia_semana": r.dia_semana,
@@ -46,7 +48,7 @@ class ControladorAgenda():
         self.__controlador_sistema.abre_tela()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.incluir_banda_agenda, 2: self.mostra_agenda, 0: self.retornar}
+        lista_opcoes = {1: self.incluir_banda_agenda, 2: self.lista_agenda, 0: self.retornar}
 
         continua = True
         while continua:

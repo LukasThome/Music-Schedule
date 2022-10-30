@@ -10,6 +10,7 @@ class TelaBanda():
     print("0 - Retornar")
 
     opcao = int(input("Escolha a opcao: "))
+    print("\n")
     return opcao
 
   #fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
@@ -17,7 +18,7 @@ class TelaBanda():
     print("-------- DADOS BANDA ----------")
     nome = input("Nome: ")
     telefone = input("Telefone: ")
-
+    print("\n")
     return {"nome": nome, "telefone": telefone}
 
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado

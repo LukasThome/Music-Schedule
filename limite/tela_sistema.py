@@ -24,5 +24,6 @@ class TelaSistema:
         print("4 - Agenda Musical")
         print("0 - Finalizar sistema")
         opcao = self.le_num_inteiro("Escolha a opcao:", [0,1,2,3,4])
+        print("\n")
         return opcao
 

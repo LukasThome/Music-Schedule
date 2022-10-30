@@ -11,6 +11,7 @@ class TelaCliente():
     print("0 - Retornar")
 
     opcao = int(input("Escolha a opcao: "))
+    print("\n")
     return opcao
 
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
@@ -19,8 +20,13 @@ class TelaCliente():
     nome = input("Nome: ")
     telefone = input("Telefone: ")
     cpf = input("CPF: ")
-
+    
+    print("Cadsatro efetuado com sucesso!")
+    print("\n")
+    
     return {"nome": nome, "telefone": telefone, "cpf": cpf}
+
+    
 
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def mostra_cliente(self, dados_cliente):
