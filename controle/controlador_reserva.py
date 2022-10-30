@@ -26,18 +26,21 @@ class ControladorReservas():
 
     cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf(dados_reserva["cpf"])
     banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(dados_reserva["telefone"])
+    numero_pessoas = int(dados_reserva["numero_pessoas"])
+
+
     codigo = randint(0, 100)
-    reserva = Reserva(cliente, banda, codigo)
+    reserva = Reserva(cliente, banda, codigo, numero_pessoas)
     self.__reservas.append(reserva)
 
   #Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
   def lista_reserva(self):
     for r in self.__reservas:
       self.__tela_reserva.mostra_reserva({"codigo": r.codigo,
-                                                "titulo_banda": r.banda.titulo,
-                                                "telefone_banda": r.banda.telefone,
                                                 "nome_cliente": r.cliente.nome,
-                                                "cpf_cliente": r.cliente.cpf})
+                                                "cpf_cliente": r.cliente.cpf,
+                                                "numero_pessoas": r.numero_pessoas
+                                                })
 
   def excluir_reserva(self):
     self.lista_reserva()

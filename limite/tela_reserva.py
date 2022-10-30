@@ -14,18 +14,18 @@ class TelaReserva():
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def pega_dados_reserva(self):
     print("-------- DADOS RESERVA ----------")
-    cpf = input("CPF Cliente ")
+    cpf = input("CPF Cliente: ")
     telefone = input("Telefone Banda: ")
+    numero_pessoas = input("Número de Pessoas: ")
 
-    return {"cpf": cpf, "telefone": telefone}
+    return {"cpf": cpf, "telefone": telefone, "numero_pessoas": numero_pessoas}
 
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def mostra_reserva(self, dados_reserva):
-    print("CODIGO DO RESERVA: ", dados_reserva["telefone"])
-    print("NOME DA BANDA: ", dados_reserva["nome_banda"])
-    print("TELEFONE DA BANDA: ", dados_reserva["telefone_banda"])
+    print("CODIGO DO RESERVA: ", dados_reserva["codigo"])
     print("NOME DO CLIENTE ", dados_reserva["nome_cliente"])
     print("CPF DO CLIENTE: ", dados_reserva["cpf_cliente"])
+    print("NÚMERO DE PESSOAS ", dados_reserva["numero_pessoas"])
     print("\n")
 
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
