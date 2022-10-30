@@ -1,11 +1,8 @@
 from entidade.cliente import Cliente
-from entidade.banda import Banda
-
 
 class Reserva:
-    def __init__(self, cliente: Cliente, banda: Banda, codigo: int, numero_pessoas: int):
-        if (isinstance(banda, Banda)):
-            self.__banda = banda
+    def __init__(self, cliente: Cliente, codigo: int, numero_pessoas: int):
+        
         if (isinstance(cliente, Cliente)):
             self.__cliente = cliente
 
@@ -15,10 +12,6 @@ class Reserva:
     @property
     def cliente(self):
         return self.__cliente
-
-    @property
-    def banda(self):
-        return self.__banda
 
     @property
     def codigo(self):
@@ -36,11 +29,6 @@ class Reserva:
     def cliente(self, cliente: Cliente):
         if (isinstance(cliente, Cliente)):
             self.__cliente = cliente
-
-    @banda.setter
-    def banda(self, banda: Banda):
-        if (isinstance(banda, Banda)):
-            self.__banda = banda
 
     @codigo.setter
     def codigo(self, codigo: int):

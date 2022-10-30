@@ -21,16 +21,14 @@ class ControladorReservas():
   #Sugestao: listar apenas os bandas que não estão emprestados
   def incluir_reserva(self):
     self.__controlador_sistema.controlador_clientes.lista_clientes()
-    self.__controlador_sistema.controlador_bandas.lista_banda()
     dados_reserva = self.__tela_reserva.pega_dados_reserva()
 
     cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf(dados_reserva["cpf"])
-    banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(dados_reserva["telefone"])
     numero_pessoas = int(dados_reserva["numero_pessoas"])
 
 
     codigo = randint(0, 100)
-    reserva = Reserva(cliente, banda, codigo, numero_pessoas)
+    reserva = Reserva(cliente, codigo, numero_pessoas)
     self.__reservas.append(reserva)
 
   #Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
