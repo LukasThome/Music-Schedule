@@ -19,6 +19,11 @@ class ControladorReservas():
         return reserva
     return None
 
+  def pega_reserva_por_dia_semana(self, dia_semana):
+        for reserva in self.__reservas:
+            if(reserva.dia_semana == dia_semana):
+                return reserva.numero_pessoas
+                
   #Sugestao: listar apenas os bandas que não estão emprestados
   def incluir_reserva(self):
     

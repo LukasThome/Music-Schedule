@@ -6,8 +6,6 @@ class ControladorAgenda():
 
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        #self.__agenda = {'TE': '', 'QA': '',
-            #'QI': '', 'SE': '', 'SA': '', 'DO': ''}
         self.__agendas = []
         self.__tela_agenda = TelaAgenda()
 
@@ -16,7 +14,7 @@ class ControladorAgenda():
         self.__controlador_sistema.controlador_bandas.lista_banda()
         # vai chamr o metodo da tela agenda para ler os valores
         dados_agenda = self.__tela_agenda.pega_dados_agenda()
-
+        
         # pega banda por telefone
         banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(dados_agenda["telefone"])
         dia_semana = dados_agenda["dia_semana"]
