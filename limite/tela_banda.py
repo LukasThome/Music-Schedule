@@ -1,6 +1,7 @@
 class TelaBanda():
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def tela_opcoes(self):
+    print("\n")
     print("-------- BANDAS ----------")
     print("Escolha a opcao")
     print("1 - Incluir Banda")
@@ -10,24 +11,26 @@ class TelaBanda():
     print("0 - Retornar")
 
     opcao = int(input("Escolha a opcao: "))
-    print("\n")
+    
     return opcao
 
   #fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def pega_dados_banda(self):
+    print("\n")
     print("-------- DADOS BANDA ----------")
     nome = input("Nome: ")
     telefone = input("Telefone: ")
     estilo = input("Estilo musical da banda: ")
-    print("\n")
+    
     return {"nome": nome, "telefone": telefone, "estilo": estilo}
 
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def mostra_banda(self, dados_banda):
+    print("\n")
     print("NOME DA BANDA: ", dados_banda["nome"])
     print("TELEFONE DO BANDA: ", dados_banda["telefone"])
     print("ESTILO MUSICAL DA BANDA: ", dados_banda["estilo"])
-    print("\n")
+    
 
   #fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def seleciona_banda(self):

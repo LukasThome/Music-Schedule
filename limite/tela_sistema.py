@@ -16,6 +16,7 @@ class TelaSistema:
                     print("Valores válidos: ", ints_validos)
 
     def tela_opcoes(self):
+        print("\n")
         print("-------- Bar do Python ---------")
         print("Escolha sua opcao")
         print("1 - Bandas")

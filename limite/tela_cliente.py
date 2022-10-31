@@ -2,6 +2,7 @@
 class TelaCliente():
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def tela_opcoes(self):
+    print("\n")
     print("-------- CLIENTES ----------")
     print("Escolha a opcao")
     print("1 - Incluir Cliente")
@@ -11,11 +12,12 @@ class TelaCliente():
     print("0 - Retornar")
 
     opcao = int(input("Escolha a opcao: "))
-    print("\n")
+
     return opcao
 
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def pega_dados_cliente(self):
+    print("\n")
     print("-------- DADOS CLIENTE ----------")
     nome = input("Nome: ")
     telefone = input("Telefone: ")
@@ -30,6 +32,7 @@ class TelaCliente():
 
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def mostra_cliente(self, dados_cliente):
+    print("\n")
     print("NOME DO CLIENTE: ", dados_cliente["nome"])
     print("FONE DO CLIENTE: ", dados_cliente["telefone"])
     print("CPF DO CLIENTE: ", dados_cliente["cpf"])
