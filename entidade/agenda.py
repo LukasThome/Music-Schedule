@@ -1,8 +1,8 @@
 from entidade.banda import Banda
 from entidade.dia_semana import DiaSemana
 
-class Agenda:
 
+class Agenda:
 
     def __init__(self, banda: Banda, dia_semana: str):
 
@@ -22,7 +22,7 @@ class Agenda:
     @banda.setter
     def banda(self, banda):
         self.__banda = banda
-    
+
     @dia_semana.setter
     def dia_semana(self, dia_semana):
         self.__dia_semana = dia_semana

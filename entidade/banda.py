@@ -4,7 +4,6 @@ class Banda:
         self.__nome = nome
         self.__estilo = estilo
         self.__telefone = telefone
-        
 
     @property
     def nome(self):
@@ -29,4 +28,3 @@ class Banda:
     @telefone.setter
     def telefone(self, telefone):
         self.__telefone = telefone
-

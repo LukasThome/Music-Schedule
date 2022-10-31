@@ -1,5 +1,6 @@
 from entidade.dia_semana import DiaSemana
 
+
 class ControladorDiaSemana():
 
     def __init__(self):
@@ -11,5 +12,4 @@ class ControladorDiaSemana():
         sabado = DiaSemana('Sabado')
         domingo = DiaSemana('Domingo')
 
-
-    #criar metodo que pega dia da semana
+    # criar metodo que pega dia da semana

@@ -4,7 +4,6 @@ class DiaSemana:
         self.__nome = nome
         self.__qtd_pessoas: int
 
-
     @property
     def nome(self):
         return self.__nome

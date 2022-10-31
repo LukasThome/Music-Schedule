@@ -5,6 +5,7 @@ from controle.controlador_reserva import ControladorReservas
 from controle.controlador_agenda import ControladorAgenda
 from controle.controlador_relatorio import ControladorRelatorio
 
+
 class ControladorSistema:
 
     def __init__(self):
@@ -22,13 +23,15 @@ class ControladorSistema:
     @property
     def controlador_bandas(self):
         return self.__controlador_bandas
-    
+
     @property
     def controlador_agenda(self):
         return self.__controlador_agenda
+
     @property
     def controlador_relatorio(self):
         return self.__controlador_relatorio
+
     @property
     def controlador_reserva(self):
         return self.__controlador_reservas
