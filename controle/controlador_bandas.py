@@ -18,7 +18,8 @@ class ControladorBandas():
 
   def incluir_banda(self):
     dados_banda = self.__tela_banda.pega_dados_banda()
-    banda = Banda(dados_banda["nome"], dados_banda["telefone"])
+    banda = Banda(dados_banda["nome"], dados_banda["telefone"], dados_banda["estilo"])
+    
     self.__bandas.append(banda)
 
   def alterar_banda(self):
@@ -30,6 +31,7 @@ class ControladorBandas():
       novos_dados_banda = self.__tela_banda.pega_dados_banda()
       banda.nome = novos_dados_banda["nome"]
       banda.telefone = novos_dados_banda["telefone"]
+      banda.estilo = novos_dados_banda["estilo"]
       self.lista_banda()
     else:
       self.__tela_banda.mostra_mensagem("ATENCAO: Banda não existente")
@@ -37,7 +39,7 @@ class ControladorBandas():
   # Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
   def lista_banda(self):
     for banda in self.__bandas:
-      self.__tela_banda.mostra_banda({"nome": banda.nome, "telefone": banda.telefone})
+      self.__tela_banda.mostra_banda({"nome": banda.nome, "telefone": banda.telefone, "estilo": banda.estilo})
 
   def excluir_banda(self):
     self.lista_banda()

@@ -22,8 +22,9 @@ class TelaSistema:
         print("2 - Clientes")
         print("3 - Reservas")
         print("4 - Agenda Musical")
+        print("5 - Relatório")
         print("0 - Finalizar sistema")
-        opcao = self.le_num_inteiro("Escolha a opcao:", [0,1,2,3,4])
+        opcao = self.le_num_inteiro("Escolha a opcao:", [0,1,2,3,4,5])
         print("\n")
         return opcao
 

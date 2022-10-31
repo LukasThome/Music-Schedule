@@ -18,13 +18,15 @@ class TelaBanda():
     print("-------- DADOS BANDA ----------")
     nome = input("Nome: ")
     telefone = input("Telefone: ")
+    estilo = input("Estilo musical da banda: ")
     print("\n")
-    return {"nome": nome, "telefone": telefone}
+    return {"nome": nome, "telefone": telefone, "estilo": estilo}
 
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
   def mostra_banda(self, dados_banda):
     print("NOME DA BANDA: ", dados_banda["nome"])
     print("TELEFONE DO BANDA: ", dados_banda["telefone"])
+    print("ESTILO MUSICAL DA BANDA: ", dados_banda["estilo"])
     print("\n")
 
   #fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
