@@ -20,7 +20,7 @@ class TelaRelatorio():
     def mostra_relatorio(self, dados_relatorio):
         print("\n")
         print("DIA DA SEMANA: ", dados_relatorio["dia_semana"])
-        #print("NOME DA BANDA: ", dados_relatorio["nome_banda"])
+        print("NOME DA BANDA: ", dados_relatorio["nome_banda"])
         print("NÚMERO DE PESSOAS ", dados_relatorio["numero_pessoas"])
 
     def mostra_mensagem(self, msg):

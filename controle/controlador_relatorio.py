@@ -20,15 +20,17 @@ class ControladorRelatorio():
         #calcular o numero de pessoas do respectivo dia da semana ou de todos os dias
 
         numero_pessoas = self.__controlador_sistema.controlador_reserva.pega_reserva_por_dia_semana(d_semana)
+        banda = self.__controlador_sistema.controlador_agenda.pega_banda_por_dia_semana(d_semana)
 
-        relatorio = Relatorio(d_semana, numero_pessoas)
+        relatorio = Relatorio(d_semana, numero_pessoas, banda)
 
         self.__relatorios.append(relatorio)
     
     def lista_relatorio(self):
         for r in self.__relatorios:
             self.__tela_relatorio.mostra_relatorio({"dia_semana": r.dia_semana,
-                                                "numero_pessoas": r.numero_pessoas
+                                                "numero_pessoas": r.numero_pessoas,
+                                                "nome_banda": r.banda.nome
                                                 })
     
     def retornar(self):

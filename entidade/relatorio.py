@@ -4,9 +4,10 @@ from entidade.agenda import Agenda
 
 class Relatorio:
 
-    def __init__(self, dia_semana: str, numero_pessoas: int):
+    def __init__(self, dia_semana: str, numero_pessoas: int, banda: str):
         self.__dia_semana = dia_semana
         self.__numero_pessoas = numero_pessoas
+        self.__banda = banda
 
 
     @property
@@ -16,6 +17,14 @@ class Relatorio:
     @property
     def numero_pessoas(self):
         return self.__numero_pessoas
+
+    @property
+    def banda(self):
+        return self.__banda
+    
+    @banda.setter
+    def banda(self, banda):
+        self.__banda = banda
 
     @dia_semana.setter
     def dia_semana(self, dia_semana):

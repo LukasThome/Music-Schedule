@@ -9,6 +9,13 @@ class ControladorAgenda():
         self.__agendas = []
         self.__tela_agenda = TelaAgenda()
 
+    
+    def pega_banda_por_dia_semana(self, dia_semana):
+        for agenda in self.__agendas:
+            if(agenda.dia_semana == dia_semana):
+                return agenda.banda
+        return None
+    
     def incluir_banda_agenda(self):
         # vai fazer um print das bandas cadastradas
         self.__controlador_sistema.controlador_bandas.lista_banda()
