@@ -42,9 +42,5 @@ class TelaAgenda():
 
         print(dados_agenda["dia_semana"], ":", dados_agenda["nome_banda"])
 
-    # def seleciona_agenda(self):
-    #codigo = input("Código da agenda que deseja selecionar: ")
-    # return codigo
-
     def mostra_mensagem(self, msg):
         print(msg)

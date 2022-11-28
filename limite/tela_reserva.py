@@ -1,5 +1,5 @@
 class TelaReserva():
-    # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
+    # Tratamento de dados
     def le_num_inteiro(self, mensagem=" ", ints_validos=None):
         while True:
             valor_lido = input(mensagem)
@@ -14,8 +14,6 @@ class TelaReserva():
                 if ints_validos:
                     print("Valores válidos: ", ints_validos)
     
-    
-    
     def tela_opcoes(self):
         print("\n")
         print("-------- RESERVAS ----------")
@@ -28,8 +26,7 @@ class TelaReserva():
         opcao = self.le_num_inteiro("Escolha a opcao:", [0, 1, 2, 3])
 
         return opcao
-
-    # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
+    
     def pega_dados_reserva(self):
         print("\n")
         print("-------- DADOS RESERVA ----------")
@@ -41,7 +38,6 @@ class TelaReserva():
 
         return {"dia_semana": dia_semana, "cpf": cpf, "numero_pessoas": numero_pessoas}
 
-    # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
     def mostra_reserva(self, dados_reserva):
         print("\n")
         print("CODIGO DO RESERVA: ", dados_reserva["codigo"])

@@ -30,7 +30,7 @@ class TelaBanda():
 
         return opcao
 
-    # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
+    
     def pega_dados_banda(self):
         print("\n")
         print("-------- DADOS BANDA ----------")
@@ -40,14 +40,12 @@ class TelaBanda():
 
         return {"nome": nome, "telefone": telefone, "estilo": estilo}
 
-    # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
+    
     def mostra_banda(self, dados_banda):
         print("\n")
         print("NOME DA BANDA: ", dados_banda["nome"])
         print("TELEFONE DO BANDA: ", dados_banda["telefone"])
         print("ESTILO MUSICAL DA BANDA: ", dados_banda["estilo"])
-
-    # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
 
     def seleciona_banda(self):
         telefone = input("Telefone do banda que deseja selecionar: ")

@@ -1,12 +1,7 @@
 from limite.tela_reserva import TelaReserva
 from entidade.reserva import Reserva
 
-
 from random import randint
-
-# ATENÇAO! Nesta classe não estão sendo tratados todos os possíveis problemas.
-# é necessário fazer tratamento de exceções em todos os casos!
-
 
 class ControladorReservas():
 
@@ -14,14 +9,14 @@ class ControladorReservas():
         self.__controlador_sistema = controlador_sistema
         self.__reservas = []
         self.__tela_reserva = TelaReserva()
-
+    
+    # pegar reserva por dia da semana e contabiliza o total de clientes
     def pega_reserva_por_codigo(self, codigo: int):
         for reserva in self.__reservas:
             if (reserva.codigo == codigo):
                 return reserva
         return None
-    # pegar reserva por dia da semana e contabiliza o total de clientes
-
+    
     def pega_reserva_por_dia_semana(self, dia_semana):
         contador = 0
         for reserva in self.__reservas:
@@ -29,11 +24,10 @@ class ControladorReservas():
                 contador += reserva.numero_pessoas
         return contador
 
-    # Sugestao: listar apenas os bandas que não estão emprestados
     def incluir_reserva(self):
 
         # faz um print de todos os clientes
-        # self.__controlador_sistema.controlador_clientes.lista_clientes()
+        self.__controlador_sistema.controlador_clientes.lista_clientes()
 
         self.__controlador_sistema.controlador_agenda.lista_agenda()
 
