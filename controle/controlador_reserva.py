@@ -7,7 +7,17 @@ class ControladorReservas():
 
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__reservas = []
+
+        ###reservas pre-definidas para teste###
+        cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("778899")
+        reserva01 = Reserva(cliente, 777, 6, "TER")
+        cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("774411")
+        reserva02 = Reserva(cliente, 888, 3, "QUA")
+        cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("774411")
+        reserva03 = Reserva(cliente, 999, 4, "QUI")
+        ### ------------------ ###
+        
+        self.__reservas = [reserva01, reserva02, reserva03]
         self.__tela_reserva = TelaReserva()
     
     # pegar reserva por dia da semana e contabiliza o total de clientes
@@ -44,8 +54,11 @@ class ControladorReservas():
 
     # Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
     def lista_reserva(self):
-        for r in self.__reservas:
-            self.__tela_reserva.mostra_reserva({"codigo": r.codigo,
+        if len(self.__reservas) == 0:
+            print("Lista de reseervas vazia")
+        else:
+            for r in self.__reservas:
+                self.__tela_reserva.mostra_reserva({"codigo": r.codigo,
                                                 "dia_semana": r.dia_semana,
                                                 "nome_cliente": r.cliente.nome,
                                                 "cpf_cliente": r.cliente.cpf,

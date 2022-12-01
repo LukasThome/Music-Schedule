@@ -1,7 +1,6 @@
-
 class Cliente:
 
-    def __init__(self, nome: str,  telefone: str, cpf: int):
+    def __init__(self, nome: str,  telefone: str, cpf: str):
         self.__nome = nome
         self.__telefone = telefone
         self.__cpf = cpf
@@ -29,3 +28,4 @@ class Cliente:
     @cpf.setter
     def cpf(self, cpf):
         self.__cpf = cpf
+

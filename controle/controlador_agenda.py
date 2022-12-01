@@ -6,8 +6,21 @@ class ControladorAgenda():
 
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__agendas = []
+        
+        ###agendas pre-definidas para teste###
+        banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone("112")
+        agenda01 = Agenda(banda, "TER")
+        banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone("113")
+        agenda02 = Agenda(banda, "QUAR")
+        banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone("114")
+        agenda03 = Agenda(banda, "QUI")
+        ### ----- ###
+        
+        
+        self.__agendas = [agenda01, agenda02, agenda03]
         self.__tela_agenda = TelaAgenda()
+
+        
 
     def pega_banda_por_dia_semana(self, dia_semana):
         for agenda in self.__agendas:
@@ -26,14 +39,12 @@ class ControladorAgenda():
             dados_agenda["telefone"])
         dia_semana = dados_agenda["dia_semana"]
 
+        
+
         # instancia o objeto agenda
         agenda = Agenda(banda,  dia_semana)
-        # existe uma lista de agendas
+        # Adiciona a uma lista de agendas
         self.__agendas.append(agenda)
-
-        # metodo para incluir a banda no dicionadrio banda
-
-        #self.__agenda.update({dia_semana, 'Sirigaita'})
 
     def lista_agenda(self):
         print("\n")

@@ -8,11 +8,19 @@ from entidade.cliente import Cliente
 class ControladorClientes():
 
     def __init__(self, controlador_sistema):
-        self.__clientes = []
-        self.__tela_cliente = TelaCliente()
         self.__controlador_sistema = controlador_sistema
+        
+        ###clientes pre definidos para teste###
+        cliente01 = Cliente("Lucas", "489", "778899")
+        cliente02 = Cliente("Leo", "488", "774411")
+        cliente03 = Cliente("Luiz", "487", "332211")
+        ### ---- ###
+        
+        self.__clientes = [cliente01, cliente02, cliente03]  
+        self.__tela_cliente = TelaCliente()
+        
 
-    def pega_cliente_por_cpf(self, cpf: int):
+    def pega_cliente_por_cpf(self, cpf: str):
         for cliente in self.__clientes:
             if (cliente.cpf == cpf):
                 return cliente
@@ -49,9 +57,14 @@ class ControladorClientes():
 
     # Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
     def lista_clientes(self):
-        for cliente in self.__clientes:
-            self.__tela_cliente.mostra_cliente(
-                {"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
+        if len(self.__clientes) == 0:
+            #Adicionar a classe de exception aqui
+            print("\n")
+            print("Lista de clientes vazia")
+        else:
+            for cliente in self.__clientes:
+                self.__tela_cliente.mostra_cliente(
+                    {"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
 
     def excluir_cliente(self):
         self.lista_clientes()

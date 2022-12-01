@@ -1,6 +1,4 @@
 from entidade.cliente import Cliente
-from entidade.agenda import Agenda
-
 
 class Reserva:
     def __init__(self, cliente: Cliente, codigo: int, numero_pessoas: int, dia_semana: str):

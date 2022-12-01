@@ -1,21 +1,13 @@
-class DiaSemana:
+from enum import Enum
 
-    def __init__(self, nome: str):
-        self.__nome = nome
-        self.__qtd_pessoas: int
+class DiaSemana(Enum):
 
-    @property
-    def nome(self):
-        return self.__nome
+    SEGUNDA  = 2,
+    TERCA = 3,
+    QUARTA = 4, 
+    QUINTA = 5,
+    SEXTA = 6,
+    SABADO = 7,
+    DOMINGO = 8
 
-    @property
-    def qtd_pessoas(self):
-        return self.__qtd_pessoas
-
-    @nome.setter
-    def nome(self, nome):
-        self.__nome = nome
-
-    @qtd_pessoas.setter
-    def qtd_pessoas(self, qtd_pessoas):
-        self.__qtd_pessoas = qtd_pessoas
+#DiaSemana = Enum('DiaSemana', ['SEGUNDA', 'TERCA', 'QUARTA', 'QUINTA', 'SEXTA', 'SABADO', 'DOMINGO'])

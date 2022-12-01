@@ -1,6 +1,6 @@
 class Banda:
 
-    def __init__(self, nome: str,  telefone: int, estilo: str):
+    def __init__(self, nome: str,  telefone: str, estilo: str):
         self.__nome = nome
         self.__estilo = estilo
         self.__telefone = telefone
@@ -28,3 +28,6 @@ class Banda:
     @telefone.setter
     def telefone(self, telefone):
         self.__telefone = telefone
+
+
+

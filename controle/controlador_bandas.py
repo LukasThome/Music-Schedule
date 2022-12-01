@@ -8,8 +8,15 @@ from entidade.banda import Banda
 class ControladorBandas():
 
     def __init__(self, controlador_sistema):
-        self.__bandas = []
         self.__controlador_sistema = controlador_sistema
+        
+        ###bandas pre definidas para teste###
+        banda01 = Banda("Greta Van Fleet", "112", "Rock")
+        banda02 = Banda("The Strokes", "113", "Rock")
+        banda03 = Banda("Metallica", "114", "Metal")
+        ### ------ ###
+        self.__bandas = [banda01, banda02, banda03]
+        
         self.__tela_banda = TelaBanda()
 
     def pega_banda_por_telefone(self, telefone: str):
