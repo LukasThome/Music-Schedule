@@ -1,7 +1,6 @@
 from entidade.banda import Banda
 from entidade.dia_semana import DiaSemana
 
-
 class Agenda:
 
     def __init__(self, banda: Banda, dia_semana: str):
