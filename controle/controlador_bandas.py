@@ -48,9 +48,17 @@ class ControladorBandas():
 
     # Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
     def lista_banda(self):
-        for banda in self.__bandas:
-            self.__tela_banda.mostra_banda(
-                {"nome": banda.nome, "telefone": banda.telefone, "estilo": banda.estilo})
+        if len(self.__bandas) == 0:
+            
+            #Adicionar a classe de exception aqui
+            print("\n")
+            print("Lista de bandas vazia")
+        else:
+            dados_bandas = []
+            for banda in self.__bandas:
+                #self.__tela_banda.mostra_banda({"nome": banda.nome, "telefone": banda.telefone, "cpf": banda.cpf})
+                dados_bandas.append({"nome": banda.nome, "telefone": banda.telefone, "estilo": banda.estilo})
+            self.__tela_banda.mostra_banda(dados_bandas)
 
     def excluir_banda(self):
         self.lista_banda()

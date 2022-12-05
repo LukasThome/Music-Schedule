@@ -47,13 +47,16 @@ class ControladorAgenda():
         self.__agendas.append(agenda)
 
     def lista_agenda(self):
-        print("\n")
-        print("AGENDA SEMANAL")
-        for r in self.__agendas:
-            # chama o metodo da tela_agenda
-            self.__tela_agenda.mostra_agenda({"dia_semana": r.dia_semana,
-                                              "nome_banda": r.banda.nome,
-                                              })
+        if len(self.__agendas) == 0:
+            #Adicionar a classe de exception aqui
+            print("\n")
+            print("Lista de agendas vazia")
+        else:
+            dados_agendas = []
+            for agenda in self.__agendas:
+                #self.__tela_agenda.mostra_agenda({"nome": agenda.nome, "telefone": agenda.telefone, "cpf": agenda.cpf})
+                dados_agendas.append({"dia_semana": agenda.dia_semana, "nome_banda": agenda.banda.nome})
+            self.__tela_agenda.mostra_agenda(dados_agendas)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

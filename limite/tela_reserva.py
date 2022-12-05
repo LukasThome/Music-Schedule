@@ -1,4 +1,12 @@
+import PySimpleGUI as sg
+
 class TelaReserva():
+    
+    
+    def __init__(self):
+        self.__window = None
+        self.init_opcoes()
+    
     # Tratamento de dados
     def le_num_inteiro(self, mensagem=" ", ints_validos=None):
         while True:
@@ -15,42 +23,86 @@ class TelaReserva():
                     print("Valores válidos: ", ints_validos)
     
     def tela_opcoes(self):
-        print("\n")
-        print("-------- RESERVAS ----------")
-        print("Escolha a opcao")
-        print("1 - Fazer Reserva")
-        print("2 - Listar Reservas")
-        print("3 - Cancelar Reserva")
-        print("0 - Retornar")
-
-        opcao = self.le_num_inteiro("Escolha a opcao:", [0, 1, 2, 3])
-
-        return opcao
+        self.init_opcoes()
+        button, values = self.__window.Read()
+        if values['1']:
+            opcao = 1
+        if values['2']:
+            opcao = 2
+        if values['3']:
+            opcao = 3
+ 
+        # cobre os casos de Retornar, fechar janela, ou clicar cancelar
+        #Isso faz com que retornemos a tela do sistema caso qualquer uma dessas coisas aconteca
+        if values['0'] or button in (None, 'Cancelar'):
+            opcao = 0
+        self.close()
+        return opcao   
+    
+    
+    def init_opcoes(self):
+        # sg.theme_previewer()
+        sg.ChangeLookAndFeel('DarkTeal4')
+        layout = [
+            [sg.Text('-------- RESERVAS ----------', font=("Helvica", 25))],
+            [sg.Text('Escolha sua opção', font=("Helvica", 15))],
+            [sg.Radio('Nova Reserva', "RD1", key='1')],
+            [sg.Radio('Mostrar Reservas', "RD1", key='2')],
+            [sg.Radio('Cancelar Reserva', "RD1", key='3')],
+            [sg.Radio('Retornar', "RD1", key='0')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Bar Manager').Layout(layout)
+    
     
     def pega_dados_reserva(self):
-        print("\n")
-        print("-------- DADOS RESERVA ----------")
-        dia_semana = input("Insira o dia da semana: ")
-        cpf = input("Insira seu CPF: ")
-        numero_pessoas = input("Número de Pessoas: ")
-        print("Reserva efetuada com sucesso!")
-        print("Aguardamos vocês!")
+        sg.ChangeLookAndFeel('DarkTeal4')
+        layout = [
+            [sg.Text('-------- DADOS RESERVA ----------', font=("Helvica", 25))],
+            [sg.Text('Insira o dia da semana:', size=(15, 1)), sg.InputText('', key='dia_semana')],
+            [sg.Text('CPF do cliente:', size=(15, 1)), sg.InputText('', key='cpf')],
+            [sg.Text('Número de Pessoas da reserva:', size=(15, 1)), sg.InputText('', key='numero_pessoas')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Bar Manager').Layout(layout)
 
+        button, values = self.open()
+        dia_semana = values['dia_semana']
+        cpf = values['cpf']
+        numero_pessoas = values['numero_pessoas']
+
+        self.close()
         return {"dia_semana": dia_semana, "cpf": cpf, "numero_pessoas": numero_pessoas}
-
+    
     def mostra_reserva(self, dados_reserva):
-        print("\n")
-        print("CODIGO DO RESERVA: ", dados_reserva["codigo"])
-        print("DIA DA SEMANA: ", dados_reserva["dia_semana"])
-        print("NOME DO CLIENTE ", dados_reserva["nome_cliente"])
-        print("CPF DO CLIENTE: ", dados_reserva["cpf_cliente"])
-        print("NÚMERO DE PESSOAS ", dados_reserva["numero_pessoas"])
+        string_todos_reservas = ""
+        for dado in dados_reserva:
+            string_todos_reservas = string_todos_reservas + "CODIGO DA RESERVA: " + dado["codigo"] + '\n'
+            string_todos_reservas = string_todos_reservas + "NOME DO CLIENTE: " + dado["nome_cliente"] + '\n'
+            string_todos_reservas = string_todos_reservas + "CPF DO CLIENTE: " + str(dado["cpf"]) + '\n'
+            string_todos_reservas = string_todos_reservas + "DIA DA SEMANA: " + str(dado["dia_semana"]) + '\n'
+            string_todos_reservas = string_todos_reservas + "NUMERO DE PESSOAS: " + str(dado["numero_pessoas"]) + '\n\n'
 
-    # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
+        sg.Popup('-------- LISTA DE RESERVAS ----------', string_todos_reservas)
+
+
     def seleciona_reserva(self):
-        codigo = input("Código do reserva que deseja selecionar: ")
-        print("\n")
+        sg.ChangeLookAndFeel('DarkTeal4')
+        layout = [
+            [sg.Text('-------- SELECIONAR RESERVA ----------', font=("Helvica", 25))],
+            [sg.Text('Digite o codigo do reserva que deseja selecionar:', font=("Helvica", 15))],
+            [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Seleciona reserva').Layout(layout)
+
+        button, values = self.open()
+        codigo = values['cpf']
+        self.close()
         return codigo
 
     def mostra_mensagem(self, msg):
         print(msg)
+    
+    def close(self):
+        self.__window.Close()

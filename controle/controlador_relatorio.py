@@ -13,7 +13,7 @@ class ControladorRelatorio():
         # mostra a agenda
         # self.__controlador_sistema.controlador_agenda.lista_agenda()
         # vai pegar os dados do usuario
-        dados_relatorio = self.__tela_relatorio.pega_dados_relatorio()
+        dados_relatorio = self.__tela_relatorio()
         # retorna a variavel dia_semana
         d_semana = dados_relatorio["dia_semana"]
 

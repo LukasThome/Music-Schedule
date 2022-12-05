@@ -62,9 +62,11 @@ class ControladorClientes():
             print("\n")
             print("Lista de clientes vazia")
         else:
+            dados_clientes = []
             for cliente in self.__clientes:
-                self.__tela_cliente.mostra_cliente(
-                    {"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
+                #self.__tela_cliente.mostra_cliente({"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
+                dados_clientes.append({"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
+            self.__tela_cliente.mostra_cliente(dados_clientes)
 
     def excluir_cliente(self):
         self.lista_clientes()

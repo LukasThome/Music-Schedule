@@ -22,21 +22,6 @@ class TelaSistema:
                 if ints_validos:
                     print("Valores válidos: ", ints_validos)
 
-    '''def tela_opcoes(self):
-        print("\n")
-        print("-------- Bar do Python ---------")
-        print("Escolha sua opcao")
-        print("1 - Bandas")
-        print("2 - Clientes")
-        print("3 - Reservas")
-        print("4 - Agenda Musical")
-        print("5 - Relatório")
-        print("0 - Finalizar sistema")
-        opcao = self.le_num_inteiro("Escolha a opcao:", [0, 1, 2, 3, 4, 5])
-        print("\n")
-        return opcao
-        '''
-
     def tela_opcoes(self):
         self.init_components()
         button, values = self.__window.Read()
