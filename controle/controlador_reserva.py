@@ -57,8 +57,8 @@ class ControladorReservas():
     def lista_reserva(self):
         if len(self.__reservas) == 0:
             #Adicionar a classe de exception aqui
-            print("\n")
-            print("Lista de reservas vazia")
+            self.__tela_reserva.mostra_mensagem(
+                "Nenhuma reserva para ser mostrada")
         else:
             dados_reservas = []
             for reserva in self.__reservas:

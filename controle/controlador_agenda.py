@@ -49,8 +49,8 @@ class ControladorAgenda():
     def lista_agenda(self):
         if len(self.__agendas) == 0:
             #Adicionar a classe de exception aqui
-            print("\n")
-            print("Lista de agendas vazia")
+            self.__tela_agenda.mostra_mensagem(
+                "Nenhuma agenda para mostrar")
         else:
             dados_agendas = []
             for agenda in self.__agendas:

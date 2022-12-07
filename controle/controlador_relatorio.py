@@ -32,8 +32,8 @@ class ControladorRelatorio():
     def lista_relatorio(self):
         if len(self.__relatorios) == 0:
             #Adicionar a classe de exception aqui
-            print("\n")
-            print("Lista de relatorios vazia")
+            self.__tela_relatorio.mostra_mensagem(
+                "ATENCAO: Nenhum relatório para ser mostrado")
         else:
             dados_relatorios = []
             for relatorio in self.__relatorios:
@@ -53,10 +53,10 @@ class ControladorRelatorio():
 
         dados_relatorio = self.__tela_relatorio.pega_dados_relatorio()
         dia_semana = dados_relatorio["dia_semana"]
-        print(dia_semana)
+        
 
         relatorio = self.pega_relatorio_por_dia_semana(dia_semana)
-        print(relatorio.dia_semana)
+        
         if (relatorio is not None):
             self.__relatorios.remove(relatorio)
             self.lista_relatorio()

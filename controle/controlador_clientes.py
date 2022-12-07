@@ -59,8 +59,8 @@ class ControladorClientes():
     def lista_clientes(self):
         if len(self.__clientes) == 0:
             #Adicionar a classe de exception aqui
-            print("\n")
-            print("Lista de clientes vazia")
+            self.__tela_cliente.mostra_mensagem(
+                "Nenhum cliente para ser mostrado")
         else:
             dados_clientes = []
             for cliente in self.__clientes:
