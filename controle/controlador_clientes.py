@@ -64,7 +64,6 @@ class ControladorClientes():
         else:
             dados_clientes = []
             for cliente in self.__clientes:
-                #self.__tela_cliente.mostra_cliente({"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
                 dados_clientes.append({"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
             self.__tela_cliente.mostra_cliente(dados_clientes)
 

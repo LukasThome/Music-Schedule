@@ -21,11 +21,11 @@ class ControladorAgenda():
         self.__tela_agenda = TelaAgenda()
 
         
-
+    #pegar a banda por dia da semana e retorna a banda
     def pega_banda_por_dia_semana(self, dia_semana):
         for agenda in self.__agendas:
             if (agenda.dia_semana == dia_semana):
-                return agenda.banda
+                return agenda
         return None
 
     def incluir_banda_agenda(self):
@@ -57,13 +57,27 @@ class ControladorAgenda():
                 #self.__tela_agenda.mostra_agenda({"nome": agenda.nome, "telefone": agenda.telefone, "cpf": agenda.cpf})
                 dados_agendas.append({"dia_semana": agenda.dia_semana, "nome_banda": agenda.banda.nome})
             self.__tela_agenda.mostra_agenda(dados_agendas)
+    
+    
+    def excluir_banda_agenda(self):
+        self.lista_agenda()
+        dia_semana = self.__tela_agenda.seleciona_agenda()
+        agenda = self.pega_banda_por_dia_semana(dia_semana)
+
+        if (agenda is not None):
+            self.__agendas.remove(agenda)
+            self.lista_agenda()
+        else:
+            self.__tela_agenda.mostra_mensagem(
+                "ATENCAO: Reserva não existente")
+
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
     def abre_tela(self):
         lista_opcoes = {1: self.incluir_banda_agenda,
-                        2: self.lista_agenda, 0: self.retornar}
+                        2: self.lista_agenda, 3: self.excluir_banda_agenda, 0: self.retornar}
 
         continua = True
         while continua:

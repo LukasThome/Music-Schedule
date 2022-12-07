@@ -10,11 +10,11 @@ class ControladorReservas():
 
         ###reservas pre-definidas para teste###
         cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("778899")
-        reserva01 = Reserva(cliente, 777, 6, "TER")
+        reserva01 = Reserva(cliente, "777", 6, "TER")
         cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("774411")
-        reserva02 = Reserva(cliente, 888, 3, "QUA")
+        reserva02 = Reserva(cliente, "888", 3, "QUA")
         cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("774411")
-        reserva03 = Reserva(cliente, 999, 4, "QUI")
+        reserva03 = Reserva(cliente, "999", 4, "QUI")
         ### ------------------ ###
         
         self.__reservas = [reserva01, reserva02, reserva03]
@@ -27,6 +27,7 @@ class ControladorReservas():
                 return reserva
         return None
     
+    #pega reserva por dia da semana e ja retorna o numero total de pessoas
     def pega_reserva_por_dia_semana(self, dia_semana):
         contador = 0
         for reserva in self.__reservas:
@@ -49,22 +50,21 @@ class ControladorReservas():
         numero_pessoas = int(dados_reserva["numero_pessoas"])
 
         codigo = randint(0, 100)
-        reserva = Reserva(cliente, codigo, numero_pessoas, dia_semana)
+        reserva = Reserva(cliente, str(codigo), numero_pessoas, dia_semana)
         self.__reservas.append(reserva)
 
     # Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
     def lista_reserva(self):
         if len(self.__reservas) == 0:
-            print("Lista de reseervas vazia")
+            #Adicionar a classe de exception aqui
+            print("\n")
+            print("Lista de reservas vazia")
         else:
-            for r in self.__reservas:
-                self.__tela_reserva.mostra_reserva({"codigo": r.codigo,
-                                                "dia_semana": r.dia_semana,
-                                                "nome_cliente": r.cliente.nome,
-                                                "cpf_cliente": r.cliente.cpf,
-                                                "numero_pessoas": r.numero_pessoas
-                                                })
-
+            dados_reservas = []
+            for reserva in self.__reservas:
+                dados_reservas.append({"codigo": reserva.codigo, "dia_semana": reserva.dia_semana, "nome_cliente": reserva.cliente.nome, "cpf_cliente": reserva.cliente.cpf, "numero_pessoas": reserva.numero_pessoas})
+            self.__tela_reserva.mostra_reserva(dados_reservas)
+           
     def excluir_reserva(self):
         self.lista_reserva()
         codigo_reserva = self.__tela_reserva.seleciona_reserva()

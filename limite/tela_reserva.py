@@ -75,15 +75,15 @@ class TelaReserva():
         return {"dia_semana": dia_semana, "cpf": cpf, "numero_pessoas": numero_pessoas}
     
     def mostra_reserva(self, dados_reserva):
-        string_todos_reservas = ""
+        string_todas_reservas = ""
         for dado in dados_reserva:
-            string_todos_reservas = string_todos_reservas + "CODIGO DA RESERVA: " + dado["codigo"] + '\n'
-            string_todos_reservas = string_todos_reservas + "NOME DO CLIENTE: " + dado["nome_cliente"] + '\n'
-            string_todos_reservas = string_todos_reservas + "CPF DO CLIENTE: " + str(dado["cpf"]) + '\n'
-            string_todos_reservas = string_todos_reservas + "DIA DA SEMANA: " + str(dado["dia_semana"]) + '\n'
-            string_todos_reservas = string_todos_reservas + "NUMERO DE PESSOAS: " + str(dado["numero_pessoas"]) + '\n\n'
+            string_todas_reservas = string_todas_reservas + "CODIGO DA RESERVA: " + dado["codigo"] + '\n'
+            string_todas_reservas = string_todas_reservas + "NOME DO CLIENTE: " + dado["nome_cliente"] + '\n'
+            string_todas_reservas = string_todas_reservas + "CPF DO CLIENTE: " + str(dado["cpf_cliente"]) + '\n'
+            string_todas_reservas = string_todas_reservas + "DIA DA SEMANA: " + str(dado["dia_semana"]) + '\n'
+            string_todas_reservas = string_todas_reservas + "NUMERO DE PESSOAS: " + str(dado["numero_pessoas"]) + '\n\n'
 
-        sg.Popup('-------- LISTA DE RESERVAS ----------', string_todos_reservas)
+        sg.Popup('-------- LISTA DE RESERVAS ----------', string_todas_reservas)
 
 
     def seleciona_reserva(self):
@@ -91,13 +91,13 @@ class TelaReserva():
         layout = [
             [sg.Text('-------- SELECIONAR RESERVA ----------', font=("Helvica", 25))],
             [sg.Text('Digite o codigo do reserva que deseja selecionar:', font=("Helvica", 15))],
-            [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
+            [sg.Text('CODIGO:', size=(15, 1)), sg.InputText('', key='codigo')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Seleciona reserva').Layout(layout)
 
         button, values = self.open()
-        codigo = values['cpf']
+        codigo = values['codigo']
         self.close()
         return codigo
 
@@ -106,3 +106,7 @@ class TelaReserva():
     
     def close(self):
         self.__window.Close()
+
+    def open(self):
+        button, values = self.__window.Read()
+        return button, values

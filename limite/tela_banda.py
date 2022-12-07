@@ -31,8 +31,10 @@ class TelaBanda():
             opcao = 2
         if values['3']:
             opcao = 3
-        if values['3']:
-            opcao = 3
+        if values['4']:
+            opcao = 4
+        
+
         # cobre os casos de Retornar, fechar janela, ou clicar cancelar
         #Isso faz com que retornemos a tela do sistema caso qualquer uma dessas coisas aconteca
         if values['0'] or button in (None, 'Cancelar'):
@@ -98,7 +100,7 @@ class TelaBanda():
         self.__window = sg.Window('Seleciona banda').Layout(layout)
 
         button, values = self.__window.Read()
-        telefone = telefone['cpf']
+        telefone = values['telefone']
         self.close()
         return telefone
 

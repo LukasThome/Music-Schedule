@@ -31,8 +31,6 @@ class TelaAgenda():
             opcao = 2
         if values['3']:
             opcao = 3
-        if values['3']:
-            opcao = 3
         # cobre os casos de Retornar, fechar janela, ou clicar cancelar
         #Isso faz com que retornemos a tela do sistema caso qualquer uma dessas coisas aconteca
         if values['0'] or button in (None, 'Cancelar'):
@@ -60,7 +58,7 @@ class TelaAgenda():
         sg.ChangeLookAndFeel('DarkTeal4')
         layout = [
             [sg.Text('-------- DADOS AGENDA ----------', font=("Helvica", 25))],
-            [sg.Text('Dia da Semana:', size=(15, 1)), sg.InputText('', key='nome')],
+            [sg.Text('Dia da Semana:', size=(15, 1)), sg.InputText('', key='dia_semana')],
             [sg.Text('Telefone da Banda:', size=(15, 1)), sg.InputText('', key='telefone')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
@@ -81,6 +79,25 @@ class TelaAgenda():
 
 
         sg.Popup('-------- AGENDA SEMANAL ----------', string_todos_agendas)
+
+    def seleciona_agenda(self):
+        sg.ChangeLookAndFeel('DarkTeal4')
+        layout = [
+            [sg.Text('-------- SELECIONAR DIA DA SEMANA DA AGENDA ----------', font=("Helvica", 25))],
+            [sg.Text('Digite o dia da semana:', font=("Helvica", 15))],
+            [sg.Text('DIA SEMANA:', size=(15, 1)), sg.InputText('', key='dia_semana')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Seleciona agenda').Layout(layout)
+
+        button, values = self.open()
+        dia_semana = values['dia_semana']
+        self.close()
+        return dia_semana
+
+
+
+
 
     def mostra_mensagem(self, msg):
         print(msg)
