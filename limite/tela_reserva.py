@@ -59,7 +59,7 @@ class TelaReserva():
         sg.ChangeLookAndFeel('DarkTeal4')
         layout = [
             [sg.Text('-------- DADOS RESERVA ----------', font=("Helvica", 25))],
-            [sg.Text('Insira o dia da semana:', size=(15, 1)), sg.InputText('', key='dia_semana')],
+            [sg.Text('Dia da semana:', size=(15, 1)), sg.InputText('', key='dia_semana')],
             [sg.Text('CPF do cliente:', size=(15, 1)), sg.InputText('', key='cpf')],
             [sg.Text('Número de Pessoas da reserva:', size=(15, 1)), sg.InputText('', key='numero_pessoas')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
