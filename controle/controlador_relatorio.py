@@ -10,12 +10,13 @@ class ControladorRelatorio():
         self.__tela_relatorio = TelaRelatorio()
 
     def criar_relatorio(self):
-        # mostra a agenda
-        # self.__controlador_sistema.controlador_agenda.lista_agenda()
+        # mostra a relatorio
+        # self.__controlador_sistema.controlador_relatorio.lista_relatorio()
         # vai pegar os dados do usuario
-        dados_relatorio = self.__tela_relatorio()
+        dados_relatorio = self.__tela_relatorio.pega_dados_relatorio()
         # retorna a variavel dia_semana
         d_semana = dados_relatorio["dia_semana"]
+
 
         # calcular o numero de pessoas do respectivo dia da semana ou de todos os dias
 
@@ -23,17 +24,23 @@ class ControladorRelatorio():
             d_semana)
         banda = self.__controlador_sistema.controlador_agenda.pega_banda_por_dia_semana(
             d_semana)
-
+        
         relatorio = Relatorio(d_semana, numero_pessoas, banda)
-
+        
         self.__relatorios.append(relatorio)
 
     def lista_relatorio(self):
-        for r in self.__relatorios:
-            self.__tela_relatorio.mostra_relatorio({"dia_semana": r.dia_semana,
-                                                    "numero_pessoas": r.numero_pessoas,
-                                                    "nome_banda": r.banda.nome
-                                                    })
+        if len(self.__relatorios) == 0:
+            #Adicionar a classe de exception aqui
+            print("\n")
+            print("Lista de relatorios vazia")
+        else:
+            dados_relatorios = []
+            for relatorio in self.__relatorios:
+                
+                dados_relatorios.append({"dia_semana": relatorio.dia_semana, "numero_pessoas": relatorio.numero_pessoas, "nome_banda": relatorio.banda.nome})
+            
+            self.__tela_relatorio.mostra_relatorio(dados_relatorios)
 
     def pega_relatorio_por_dia_semana(self, dia_semana):
         for relatorio in self.__relatorios:
@@ -44,14 +51,17 @@ class ControladorRelatorio():
     def excluir_relatorio(self):
         self.lista_relatorio()
 
-        day_semana = self.__tela_relatorio.pega_dados_relatorio()
+        dados_relatorio = self.__tela_relatorio.pega_dados_relatorio()
+        dia_semana = dados_relatorio["dia_semana"]
+        print(dia_semana)
 
-        relatorio = self.pega_relatorio_por_dia_semana(day_semana)
-
+        relatorio = self.pega_relatorio_por_dia_semana(dia_semana)
+        print(relatorio.dia_semana)
         if (relatorio is not None):
             self.__relatorios.remove(relatorio)
             self.lista_relatorio()
         else:
+            
             self.__tela_relatorio.mostra_mensagem(
                 "ATENCAO: Relatorio não existente")
 

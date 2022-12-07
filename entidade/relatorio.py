@@ -4,7 +4,7 @@ from entidade.agenda import Agenda
 
 class Relatorio:
 
-    def __init__(self, dia_semana: str, numero_pessoas: int, banda: str):
+    def __init__(self, dia_semana: str, numero_pessoas: int, banda: Banda):
         self.__dia_semana = dia_semana
         self.__numero_pessoas = numero_pessoas
         self.__banda = banda

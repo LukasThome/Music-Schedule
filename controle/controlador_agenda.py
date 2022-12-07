@@ -11,7 +11,7 @@ class ControladorAgenda():
         banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone("112")
         agenda01 = Agenda(banda, "TER")
         banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone("113")
-        agenda02 = Agenda(banda, "QUAR")
+        agenda02 = Agenda(banda, "QUA")
         banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone("114")
         agenda03 = Agenda(banda, "QUI")
         ### ----- ###
@@ -25,7 +25,7 @@ class ControladorAgenda():
     def pega_banda_por_dia_semana(self, dia_semana):
         for agenda in self.__agendas:
             if (agenda.dia_semana == dia_semana):
-                return agenda
+                return agenda.banda
         return None
 
     def incluir_banda_agenda(self):
