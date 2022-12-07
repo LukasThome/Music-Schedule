@@ -21,7 +21,7 @@ class ControladorReservas():
         self.__tela_reserva = TelaReserva()
     
     # pegar reserva por dia da semana e contabiliza o total de clientes
-    def pega_reserva_por_codigo(self, codigo: int):
+    def pega_reserva_por_codigo(self, codigo: str):
         for reserva in self.__reservas:
             if (reserva.codigo == codigo):
                 return reserva
@@ -68,7 +68,7 @@ class ControladorReservas():
     def excluir_reserva(self):
         self.lista_reserva()
         codigo_reserva = self.__tela_reserva.seleciona_reserva()
-        reserva = self.pega_reserva_por_codigo(int(codigo_reserva))
+        reserva = self.pega_reserva_por_codigo(codigo_reserva)
 
         if (reserva is not None):
             self.__reservas.remove(reserva)
