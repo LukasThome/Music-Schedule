@@ -16,26 +16,26 @@ class ControladorClientes():
         self.__cliente_DAO = ClienteDAO()
 
         ###clientes pre definidos para teste###
-        cliente01 = Cliente("Lucas", "489", "778899")
-        cliente02 = Cliente("Leo", "488", "774411")
-        cliente03 = Cliente("Luiz", "487", "332211")
+        #cliente01 = Cliente("Lucas", "489", "778899")
+        #cliente02 = Cliente("Leo", "488", "774411")
+        #cliente03 = Cliente("Luiz", "487", "332211")
         ### ---- ###
         
-        self.__clientes = [cliente01, cliente02, cliente03]  
+        #self.__clientes = [cliente01, cliente02, cliente03]  
         self.__tela_cliente = TelaCliente()
         
 
     def pega_cliente_por_cpf(self, cpf: str):
-        for cliente in self.__clientes:
-        #for cliente in self.__cliente_DAO.get_all():
+        #for cliente in self.__clientes:
+        for cliente in self.__cliente_DAO.get_all():
             if (cliente.cpf == cpf):
                 return cliente
             return None
 
-        for cliente in self.__cliente_DAO.get_all():
-            if (cliente.cpf == cpf):
-                return cliente
-        return None
+        #for cliente in self.__cliente_DAO.get_all():
+            #if (cliente.cpf == cpf):
+                #return cliente
+        #return None
 
     # testagem com lançamento de exceção para clientes já existentes!
     def incluir_cliente(self):
@@ -51,7 +51,7 @@ class ControladorClientes():
             if cliente == None and void == False:
                 cliente = Cliente(
                     dados_cliente["nome"], dados_cliente["telefone"], dados_cliente["cpf"])
-                self.__clientes.append(cliente)
+                #self.__clientes.append(cliente)
                 self.__cliente_DAO.add(cliente)
             else:
                 raise ClienteDuplicadaException
@@ -79,11 +79,11 @@ class ControladorClientes():
     # Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
     def lista_clientes(self):
         try:
-            if len(self.__clientes) != 0:
+            if len(self.__cliente_DAO.get_all()) != 0:
                 dados_clientes = []
-                for cliente in self.__clientes:
-                    dados_clientes.append({"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
-                self.__tela_cliente.mostra_cliente(dados_clientes)
+                #for cliente in self.__clientes:
+                    #dados_clientes.append({"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
+                #self.__tela_cliente.mostra_cliente(dados_clientes)
 
 
                 for cliente in self.__cliente_DAO.get_all():
@@ -103,7 +103,7 @@ class ControladorClientes():
         
         try:
             if (cliente is not None):
-                self.__clientes.remove(cliente)
+                #self.__clientes.remove(cliente)
                 self.__cliente_DAO.remove(cliente.cpf)
                 self.lista_clientes()
             else:
