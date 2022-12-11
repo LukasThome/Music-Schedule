@@ -30,6 +30,11 @@ class ControladorClientes():
         #for cliente in self.__cliente_DAO.get_all():
             if (cliente.cpf == cpf):
                 return cliente
+            return None
+
+        for cliente in self.__cliente_DAO.get_all():
+            if (cliente.cpf == cpf):
+                return cliente
         return None
 
     # testagem com lançamento de exceção para clientes já existentes!
@@ -39,7 +44,7 @@ class ControladorClientes():
         
         void = False
         
-        if dados_cliente["nome"] == "" or dados_cliente["telefone"] == "" or dados_cliente["estilo"] == "":
+        if dados_cliente["nome"] == "" or dados_cliente["telefone"] == "" or dados_cliente["cpf"] == "":
             void = True
 
         try:
@@ -80,6 +85,11 @@ class ControladorClientes():
                     dados_clientes.append({"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
                 self.__tela_cliente.mostra_cliente(dados_clientes)
 
+
+                for cliente in self.__cliente_DAO.get_all():
+                    dados_clientes.append({"nome": cliente.nome, "telefone": cliente.telefone, "cpf": cliente.cpf})
+                    self.__tela_cliente.mostra_cliente(dados_clientes)
+
             else:
                 raise ClienteListaVaziaException
         except ClienteListaVaziaException as e:
@@ -94,6 +104,7 @@ class ControladorClientes():
         try:
             if (cliente is not None):
                 self.__clientes.remove(cliente)
+                self.__cliente_DAO.remove(cliente.cpf)
                 self.lista_clientes()
             else:
                 raise ClienteNaoExistenteException
