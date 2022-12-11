@@ -106,7 +106,7 @@ class TelaBanda():
 
 
     def mostra_mensagem(self, msg):
-        print(msg)
+        sg.popup("", msg)
 
     
     def close(self):

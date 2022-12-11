@@ -1,5 +1,10 @@
 from limite.tela_reserva import TelaReserva
 from entidade.reserva import Reserva
+from exceptions.reservaDiaInvalido import ReservaDiaInvalidoException
+from exceptions.reservaListaVazia import ReservaListaVaziaException
+from exceptions.reservaNaoExistente import ReservaNaoExistenteException
+from exceptions.inteiroInvalido import  InteiroInvalidopException
+from exceptions.clienteNaoExistente import ClienteNaoExistenteException
 
 from random import randint
 
@@ -17,6 +22,7 @@ class ControladorReservas():
         reserva03 = Reserva(cliente, "999", 4, "QUI")
         ### ------------------ ###
         
+
         self.__reservas = [reserva01, reserva02, reserva03]
         self.__tela_reserva = TelaReserva()
     
@@ -42,40 +48,83 @@ class ControladorReservas():
 
         self.__controlador_sistema.controlador_agenda.lista_agenda()
 
+
+
         dados_reserva = self.__tela_reserva.pega_dados_reserva()
-
+        dias_validos = ["SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"]
         dia_semana = dados_reserva["dia_semana"]
-        cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf(
-            dados_reserva["cpf"])
-        numero_pessoas = int(dados_reserva["numero_pessoas"])
 
+
+        cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf(
+                    dados_reserva["cpf"])
+        
         codigo = randint(0, 100)
-        reserva = Reserva(cliente, str(codigo), numero_pessoas, dia_semana)
-        self.__reservas.append(reserva)
+        
+        ehInteiro = bool
+        dia_valido = bool
+        existe_cliente = bool
+
+        ##verifica se é int o valor de numero pessoas
+        try:    
+            numero_pessoas = int(dados_reserva["numero_pessoas"])
+            ehInteiro = True   
+        except ValueError:
+            ehInteiro = False
+            self.__tela_reserva.mostra_mensagem("Insira um valor inteiro")
+
+
+        ##verifica se o usuario digitou o dia da semana corretamente
+        try:
+            if dia_semana in dias_validos:
+               dia_valido = True
+            else:
+                raise ReservaDiaInvalidoException
+        except ReservaDiaInvalidoException as e:
+            self.__tela_reserva.mostra_mensagem(e)
+
+        ##verifica se o cliente é existente
+        try:
+            if cliente is not None:
+                existe_cliente = True
+            else:
+                existe_cliente = False
+                raise ClienteNaoExistenteException
+        except ClienteNaoExistenteException as e:
+            self.__tela_reserva.mostra_mensagem(e)
+
+
+        
+        if ehInteiro == True and dia_valido == True and existe_cliente == True:
+            reserva = Reserva(cliente, str(codigo), numero_pessoas, dia_semana)
+            self.__reservas.append(reserva)
+            
 
     # Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
     def lista_reserva(self):
-        if len(self.__reservas) == 0:
-            #Adicionar a classe de exception aqui
-            self.__tela_reserva.mostra_mensagem(
-                "Nenhuma reserva para ser mostrada")
-        else:
-            dados_reservas = []
-            for reserva in self.__reservas:
-                dados_reservas.append({"codigo": reserva.codigo, "dia_semana": reserva.dia_semana, "nome_cliente": reserva.cliente.nome, "cpf_cliente": reserva.cliente.cpf, "numero_pessoas": reserva.numero_pessoas})
-            self.__tela_reserva.mostra_reserva(dados_reservas)
+        try:
+            if len(self.__reservas) != 0:
+                dados_reservas = []
+                for reserva in self.__reservas:
+                    dados_reservas.append({"codigo": reserva.codigo, "dia_semana": reserva.dia_semana, "nome_cliente": reserva.cliente.nome, "cpf_cliente": reserva.cliente.cpf, "numero_pessoas": reserva.numero_pessoas})
+                self.__tela_reserva.mostra_reserva(dados_reservas)
+            else:
+                raise ReservaListaVaziaException
+        except ReservaListaVaziaException as e:
+            self.__tela_reserva.mostra_mensagem(e)
+            
            
     def excluir_reserva(self):
         self.lista_reserva()
         codigo_reserva = self.__tela_reserva.seleciona_reserva()
         reserva = self.pega_reserva_por_codigo(codigo_reserva)
-
-        if (reserva is not None):
-            self.__reservas.remove(reserva)
-            self.lista_reserva()
-        else:
-            self.__tela_reserva.mostra_mensagem(
-                "ATENCAO: Reserva não existente")
+        try:
+            if (reserva is not None):
+                self.__reservas.remove(reserva)
+                self.lista_reserva()
+            else:
+                raise ReservaNaoExistenteException
+        except ReservaNaoExistenteException as e:
+            self.__tela_reserva.mostra_mensagem(e)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

@@ -102,7 +102,7 @@ class TelaReserva():
         return codigo
 
     def mostra_mensagem(self, msg):
-        print(msg)
+        sg.popup("", msg)
     
     def close(self):
         self.__window.Close()

@@ -1,4 +1,4 @@
-from jogo_duplicado_exception import JogoDuplicadoException
+#from jogo_duplicado_exception import JogoDuplicadoException
 
 
 class JogoDuplicadoException(Exception):
@@ -7,18 +7,18 @@ class JogoDuplicadoException(Exception):
 
 
         #Thaís Bardini Idalino7: 45 PM
-        if self.busca_jogo_por_numero(jogo.numero) is not None:
+        #if self.busca_jogo_por_numero(jogo.numero) is not None:
                             #raise JogoDuplicadoException
-            try:
-                pass
+            #try:
+                #pass
 
-            except JogoDuplicadoException:
-                pass
+            #except JogoDuplicadoException:
+               # pass
             #self.__tela.mostramsg("Jogo repetido"
 
 
        
-            self.__tela_amigo.mostra_mensagem(str(e))
+            #self.__tela_amigo.mostra_mensagem(str(e))
 
         
 

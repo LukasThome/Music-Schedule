@@ -1,6 +1,9 @@
 from entidade.relatorio import Relatorio
 from limite.tela_relatorio import TelaRelatorio
-
+from exceptions.relatorioNaoExistente import RelatorioNaoExistenteException
+from exceptions.relatorioListaVazia import RelatorioListaVaziaException
+from exceptions.reservaDiaInvalido import ReservaDiaInvalidoException
+from exceptions.agendaNaoExistente import AgendaNaoExistenteException
 
 class ControladorRelatorio():
 
@@ -24,23 +27,53 @@ class ControladorRelatorio():
             d_semana)
         banda = self.__controlador_sistema.controlador_agenda.pega_banda_por_dia_semana(
             d_semana)
+
+        dias_validos = ["SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"]
+
+        print(numero_pessoas, banda)
+
+        existe_agenda = True
+        dia_valido = True
         
-        relatorio = Relatorio(d_semana, numero_pessoas, banda)
+        try:
+            if d_semana in dias_validos:
+                dia_valido = True
+            else:
+                dia_valido = False
+                raise ReservaDiaInvalidoException
+        except ReservaDiaInvalidoException as e:
+            self.__tela_relatorio.mostra_mensagem(e)
         
-        self.__relatorios.append(relatorio)
+        try:
+            if banda is not None:
+                existe_agenda = True
+            else:
+                existe_agenda = False
+                raise AgendaNaoExistenteException
+        except AgendaNaoExistenteException as e:
+            self.__tela_relatorio.mostra_mensagem(e)
+
+        
+
+            if dia_valido == True and existe_agenda == True:
+                relatorio = Relatorio(d_semana, numero_pessoas, banda)
+                self.__relatorios.append(relatorio)
 
     def lista_relatorio(self):
-        if len(self.__relatorios) == 0:
-            #Adicionar a classe de exception aqui
-            self.__tela_relatorio.mostra_mensagem(
-                "ATENCAO: Nenhum relatório para ser mostrado")
-        else:
-            dados_relatorios = []
-            for relatorio in self.__relatorios:
-                
-                dados_relatorios.append({"dia_semana": relatorio.dia_semana, "numero_pessoas": relatorio.numero_pessoas, "nome_banda": relatorio.banda.nome})
             
-            self.__tela_relatorio.mostra_relatorio(dados_relatorios)
+        try:
+            if len(self.__relatorios) != 0:
+                dados_relatorios = []
+                for relatorio in self.__relatorios:
+                    
+                    dados_relatorios.append({"dia_semana": relatorio.dia_semana, "numero_pessoas": relatorio.numero_pessoas, "nome_banda": relatorio.banda.nome})
+                
+                self.__tela_relatorio.mostra_relatorio(dados_relatorios)
+            else:
+                raise RelatorioListaVaziaException
+        except RelatorioListaVaziaException as e:
+            self.__tela_relatorio.mostra_mensagem(e)
+
 
     def pega_relatorio_por_dia_semana(self, dia_semana):
         for relatorio in self.__relatorios:
@@ -57,13 +90,23 @@ class ControladorRelatorio():
 
         relatorio = self.pega_relatorio_por_dia_semana(dia_semana)
         
-        if (relatorio is not None):
-            self.__relatorios.remove(relatorio)
-            self.lista_relatorio()
-        else:
-            
-            self.__tela_relatorio.mostra_mensagem(
-                "ATENCAO: Relatorio não existente")
+        dias_validos = ["SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"]
+        
+        try:
+            if dia_semana not in dias_validos:
+                raise ReservaDiaInvalidoException
+        except ReservaDiaInvalidoException as e:
+            self.__tela_agenda.mostra_mensagem(e)
+        
+        
+        try:
+            if (relatorio is not None):
+                self.__relatorios.remove(relatorio)
+                self.lista_relatorio()
+            else:
+                raise RelatorioNaoExistenteException
+        except RelatorioNaoExistenteException as e:
+            self.__tela_relatorio.mostra_mensagem(e)       
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

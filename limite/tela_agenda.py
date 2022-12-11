@@ -95,12 +95,14 @@ class TelaAgenda():
         self.close()
         return dia_semana
 
+        
+
 
 
 
 
     def mostra_mensagem(self, msg):
-        print(msg)
+        sg.popup("", msg)
 
     def close(self):
         self.__window.Close()

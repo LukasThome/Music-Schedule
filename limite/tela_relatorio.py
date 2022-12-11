@@ -90,7 +90,7 @@ class TelaRelatorio():
   # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
 
     def mostra_mensagem(self, msg):
-        print(msg)
+        sg.popup("", msg)
 
     def close(self):
         self.__window.Close()
