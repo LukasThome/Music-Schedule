@@ -5,37 +5,41 @@ from exceptions.agendaNaoExistente import AgendaNaoExistenteException
 from exceptions.reservaDiaInvalido import ReservaDiaInvalidoException
 from exceptions.bandaTelefoneIncorreto import BandaTelefoneIncorretoException
 from exceptions.agendaDuplicada import AgendaDuplicadaException
-
+from DAOs.agenda_dao import AgendaDAO
 
 class ControladorAgenda():
 
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-
+        self.__agenda_DAO = AgendaDAO()
         ### agendas pre-definidas para teste###
-        banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(
-            "112")
-        agenda01 = Agenda(banda, "TER")
-        banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(
-            "113")
-        agenda02 = Agenda(banda, "QUA")
-        banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(
-            "114")
-        agenda03 = Agenda(banda, "QUI")
+        #banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(
+        #    "112")
+        #agenda01 = Agenda(banda, "TER")
+        #banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(
+        #    "113")
+        #agenda02 = Agenda(banda, "QUA")
+        #banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(
+         #   "114")
+        #agenda03 = Agenda(banda, "QUI")
         ### ----- ###
 
-        self.__agendas = [agenda01, agenda02, agenda03]
+        #self.__agendas = [agenda01, agenda02, agenda03]
         self.__tela_agenda = TelaAgenda()
 
     # pegar a banda por dia da semana e retorna a banda
 
-    def pega_banda_por_dia_semana(self, dia_semana):
-        for agenda in self.__agendas:
+    def pega_banda_por_dia_semana(self, dia_semana: str):
+        for agenda in self.__agenda_DAO.get_all():
             if (agenda.dia_semana == dia_semana):
                 return agenda.banda
         return None
 
     def incluir_banda_agenda(self):
+        telefone_valido = bool
+        repetido = bool
+        dia_valido = bool
+        
         # vai fazer um print das bandas cadastradas
         self.__controlador_sistema.controlador_bandas.lista_banda()
         # vai chamr o metodo da tela agenda para ler os valores
@@ -46,19 +50,23 @@ class ControladorAgenda():
             dados_agenda["telefone"])
         try:
             if banda is None:
+                telefone_valido = False
                 raise BandaTelefoneIncorretoException
+            else:
+                telefone_valido = True
         except BandaTelefoneIncorretoException as e:
             self.__tela_agenda.mostra_mensagem(e)
 
         dia_semana = dados_agenda["dia_semana"]
         dias_validos = ["SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"]
 
-        repetido = False
-        dia_valido = True
+        telefone_valido = bool
+        repetido = bool
+        dia_valido = bool
         
         
         try:
-            for agenda in self.__agendas:
+            for agenda in self.__agenda_DAO.get_all():
                 if agenda.dia_semana != dia_semana:
                     repetido = False
                 else:
@@ -78,17 +86,18 @@ class ControladorAgenda():
         except ReservaDiaInvalidoException as e:
             self.__tela_agenda.mostra_mensagem(e)
 
-        if dia_valido == True and repetido == False:
+        if dia_valido == True and repetido == False and telefone_valido == True:
             # instancia o objeto agenda
                 agenda = Agenda(banda,  dia_semana)
                 # Adiciona a uma lista de agendas
-                self.__agendas.append(agenda)
+                self.__agenda_DAO.add(agenda)
+                #self.__agendas.append(agenda)
 
     def lista_agenda(self):
         try:
-            if len(self.__agendas) != 0:
+            if len(self.__agenda_DAO.get_all()) != 0:
                 dados_agendas = []
-                for agenda in self.__agendas:
+                for agenda in self.__agenda_DAO.get_all():
                     #self.__tela_agenda.mostra_agenda({"nome": agenda.nome, "telefone": agenda.telefone, "cpf": agenda.cpf})
                     dados_agendas.append(
                         {"dia_semana": agenda.dia_semana, "nome_banda": agenda.banda.nome})
@@ -99,8 +108,8 @@ class ControladorAgenda():
         except AgendaListaVaziaException as e:
             self.__tela_agenda.mostra_mensagem(e)
 
-    def pega_agenda_por_dia_semana(self, dia_semana):
-        for agenda in self.__agendas:
+    def pega_agenda_por_dia_semana(self, dia_semana: str):
+        for agenda in self.__agenda_DAO.get_all():
             if (agenda.dia_semana == dia_semana):
                 return agenda
         return None
@@ -123,7 +132,8 @@ class ControladorAgenda():
 
         try:
             if (agenda is not None):
-                self.__agendas.remove(agenda)
+                self.__agenda_DAO.remove(agenda.dia_semana)
+                #self.__agendas.remove(agenda)
                 self.lista_agenda()
             else:
                 raise AgendaNaoExistenteException

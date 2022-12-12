@@ -5,6 +5,10 @@ from exceptions.reservaListaVazia import ReservaListaVaziaException
 from exceptions.reservaNaoExistente import ReservaNaoExistenteException
 from exceptions.inteiroInvalido import  InteiroInvalidopException
 from exceptions.clienteNaoExistente import ClienteNaoExistenteException
+from exceptions.agendaListaVazia import AgendaListaVaziaException
+from DAOs.reserva_dao import ReservaDAO
+
+
 
 from random import randint
 
@@ -12,31 +16,33 @@ class ControladorReservas():
 
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
+        self.__reserva_DAO = ReservaDAO()
 
         ###reservas pre-definidas para teste###
-        cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("778899")
-        reserva01 = Reserva(cliente, "777", 6, "TER")
-        cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("774411")
-        reserva02 = Reserva(cliente, "888", 3, "QUA")
-        cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("774411")
-        reserva03 = Reserva(cliente, "999", 4, "QUI")
+        #cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("778899")
+        #reserva01 = Reserva(cliente, "777", 6, "TER")
+        #cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("774411")
+        #reserva02 = Reserva(cliente, "888", 3, "QUA")
+        #cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("774411")
+        #reserva03 = Reserva(cliente, "999", 4, "QUI")
         ### ------------------ ###
+    
+        #self.__reservas = [reserva01, reserva02, reserva03]
         
-
-        self.__reservas = [reserva01, reserva02, reserva03]
         self.__tela_reserva = TelaReserva()
     
     # pegar reserva por dia da semana e contabiliza o total de clientes
     def pega_reserva_por_codigo(self, codigo: str):
-        for reserva in self.__reservas:
+        for reserva in self.__reserva_DAO.get_all():
+        #for reserva in self.__reservas:
             if (reserva.codigo == codigo):
                 return reserva
         return None
     
     #pega reserva por dia da semana e ja retorna o numero total de pessoas
-    def pega_reserva_por_dia_semana(self, dia_semana):
+    def pega_reserva_por_dia_semana(self, dia_semana: str):
         contador = 0
-        for reserva in self.__reservas:
+        for reserva in self.__reserva_DAO.get_all():
             if (reserva.dia_semana == dia_semana):
                 contador += reserva.numero_pessoas
         return contador
@@ -46,9 +52,10 @@ class ControladorReservas():
         # faz um print de todos os clientes
         self.__controlador_sistema.controlador_clientes.lista_clientes()
 
+       
         self.__controlador_sistema.controlador_agenda.lista_agenda()
 
-
+        
 
         dados_reserva = self.__tela_reserva.pega_dados_reserva()
         dias_validos = ["SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"]
@@ -71,6 +78,7 @@ class ControladorReservas():
         except ValueError:
             ehInteiro = False
             self.__tela_reserva.mostra_mensagem("Insira um valor inteiro")
+
 
 
         ##verifica se o usuario digitou o dia da semana corretamente
@@ -96,15 +104,16 @@ class ControladorReservas():
         
         if ehInteiro == True and dia_valido == True and existe_cliente == True:
             reserva = Reserva(cliente, str(codigo), numero_pessoas, dia_semana)
-            self.__reservas.append(reserva)
+            self.__reserva_DAO.add(reserva)
+            #self.__reservas.append(reserva)
             
 
     # Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
     def lista_reserva(self):
         try:
-            if len(self.__reservas) != 0:
+            if len(self.__reserva_DAO.get_all()) != 0:
                 dados_reservas = []
-                for reserva in self.__reservas:
+                for reserva in self.__reserva_DAO.get_all():
                     dados_reservas.append({"codigo": reserva.codigo, "dia_semana": reserva.dia_semana, "nome_cliente": reserva.cliente.nome, "cpf_cliente": reserva.cliente.cpf, "numero_pessoas": reserva.numero_pessoas})
                 self.__tela_reserva.mostra_reserva(dados_reservas)
             else:
@@ -119,7 +128,8 @@ class ControladorReservas():
         reserva = self.pega_reserva_por_codigo(codigo_reserva)
         try:
             if (reserva is not None):
-                self.__reservas.remove(reserva)
+                self.reserva.remove(reserva.codigo)
+               # self.__reservas.remove(reserva)
                 self.lista_reserva()
             else:
                 raise ReservaNaoExistenteException

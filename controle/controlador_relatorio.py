@@ -4,14 +4,16 @@ from exceptions.relatorioNaoExistente import RelatorioNaoExistenteException
 from exceptions.relatorioListaVazia import RelatorioListaVaziaException
 from exceptions.reservaDiaInvalido import ReservaDiaInvalidoException
 from exceptions.agendaNaoExistente import AgendaNaoExistenteException
+from DAOs.relatorio_dao import RelatorioDAO
 
 class ControladorRelatorio():
 
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__relatorios = []
+        #self.__relatorios = []
         self.__tela_relatorio = TelaRelatorio()
-
+        self.__relatorio_DAO = RelatorioDAO()
+    
     def criar_relatorio(self):
         # mostra a relatorio
         # self.__controlador_sistema.controlador_relatorio.lista_relatorio()
@@ -30,10 +32,10 @@ class ControladorRelatorio():
 
         dias_validos = ["SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"]
 
-        print(numero_pessoas, banda)
+        print("35",numero_pessoas, banda)
 
-        existe_agenda = True
-        dia_valido = True
+        existe_agenda = bool
+        dia_valido = bool
         
         try:
             if d_semana in dias_validos:
@@ -55,16 +57,18 @@ class ControladorRelatorio():
 
         
 
-            if dia_valido == True and existe_agenda == True:
-                relatorio = Relatorio(d_semana, numero_pessoas, banda)
-                self.__relatorios.append(relatorio)
+        if dia_valido == True and existe_agenda == True:
+            relatorio = Relatorio(d_semana, numero_pessoas, banda)
+            self.__relatorio_DAO.add(relatorio)
+            print("UEBA")
+            #self.__relatorios.append(relatorio)
 
     def lista_relatorio(self):
             
         try:
-            if len(self.__relatorios) != 0:
+            if len(self.__relatorio_DAO.get_all()) != 0:
                 dados_relatorios = []
-                for relatorio in self.__relatorios:
+                for relatorio in self.__relatorio_DAO.get_all():
                     
                     dados_relatorios.append({"dia_semana": relatorio.dia_semana, "numero_pessoas": relatorio.numero_pessoas, "nome_banda": relatorio.banda.nome})
                 
@@ -76,7 +80,7 @@ class ControladorRelatorio():
 
 
     def pega_relatorio_por_dia_semana(self, dia_semana):
-        for relatorio in self.__relatorios:
+        for relatorio in self.__relatorio_DAO.get_all():
             if (relatorio.dia_semana == dia_semana):
                 return relatorio
         return None
@@ -95,13 +99,15 @@ class ControladorRelatorio():
         try:
             if dia_semana not in dias_validos:
                 raise ReservaDiaInvalidoException
+            else:
+                pass
         except ReservaDiaInvalidoException as e:
-            self.__tela_agenda.mostra_mensagem(e)
+            self.__tela_relatorio.mostra_mensagem(e)
         
         
         try:
             if (relatorio is not None):
-                self.__relatorios.remove(relatorio)
+                self.__relatorio_DAO.remove(relatorio.dia_semana)
                 self.lista_relatorio()
             else:
                 raise RelatorioNaoExistenteException

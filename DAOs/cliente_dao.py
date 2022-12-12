@@ -14,10 +14,10 @@ class ClienteDAO(DAO):
         if((cliente is not None) and isinstance(cliente, Cliente) and isinstance(cliente.cpf, str)):
             super().update(cliente.cpf, cliente)
 
-    def get(self, key:int):
-        if isinstance(key, int):
+    def get(self, key:str):
+        if isinstance(key, str):
             return super().get(key)
 
-    def remove(selfself, key:int):
-        if(isinstance(key, int)):
+    def remove(selfself, key:str):
+        if(isinstance(key, str)):
             return super().remove(key)
