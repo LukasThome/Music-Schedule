@@ -1,5 +1,5 @@
 from entidade.cliente import Cliente
-from entidade.dia_semana import DiaSemana
+
 
 class Reserva:
     def __init__(self, cliente: Cliente, codigo: str, numero_pessoas: int, dia_semana: str):

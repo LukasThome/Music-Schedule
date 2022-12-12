@@ -1,7 +1,7 @@
 from DAOs.dao import DAO
 from entidade.banda import Banda
 
-#cada entidade terá uma classe dessa, implementação bem simples.
+
 class BandaDAO(DAO):
     def __init__(self):
         super().__init__('bandas.pkl')

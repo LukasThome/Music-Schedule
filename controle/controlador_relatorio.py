@@ -10,14 +10,14 @@ class ControladorRelatorio():
 
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        #self.__relatorios = []
+    
         self.__tela_relatorio = TelaRelatorio()
         self.__relatorio_DAO = RelatorioDAO()
     
     def criar_relatorio(self):
         # mostra a relatorio
-        # self.__controlador_sistema.controlador_relatorio.lista_relatorio()
-        # vai pegar os dados do usuario
+        
+        # vai pegar dados do usuario
         dados_relatorio = self.__tela_relatorio.pega_dados_relatorio()
         # retorna a variavel dia_semana
         d_semana = dados_relatorio["dia_semana"]
@@ -32,7 +32,6 @@ class ControladorRelatorio():
 
         dias_validos = ["SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"]
 
-        print("35",numero_pessoas, banda)
 
         existe_agenda = bool
         dia_valido = bool
@@ -60,8 +59,7 @@ class ControladorRelatorio():
         if dia_valido == True and existe_agenda == True:
             relatorio = Relatorio(d_semana, numero_pessoas, banda)
             self.__relatorio_DAO.add(relatorio)
-            print("UEBA")
-            #self.__relatorios.append(relatorio)
+            
 
     def lista_relatorio(self):
             

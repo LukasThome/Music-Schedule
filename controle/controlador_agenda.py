@@ -12,19 +12,7 @@ class ControladorAgenda():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__agenda_DAO = AgendaDAO()
-        ### agendas pre-definidas para teste###
-        #banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(
-        #    "112")
-        #agenda01 = Agenda(banda, "TER")
-        #banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(
-        #    "113")
-        #agenda02 = Agenda(banda, "QUA")
-        #banda = self.__controlador_sistema.controlador_bandas.pega_banda_por_telefone(
-         #   "114")
-        #agenda03 = Agenda(banda, "QUI")
-        ### ----- ###
-
-        #self.__agendas = [agenda01, agenda02, agenda03]
+    
         self.__tela_agenda = TelaAgenda()
 
     # pegar a banda por dia da semana e retorna a banda
@@ -87,18 +75,18 @@ class ControladorAgenda():
             self.__tela_agenda.mostra_mensagem(e)
 
         if dia_valido == True and repetido == False and telefone_valido == True:
-            # instancia o objeto agenda
+                #instancia o objeto agenda
                 agenda = Agenda(banda,  dia_semana)
                 # Adiciona a uma lista de agendas
                 self.__agenda_DAO.add(agenda)
-                #self.__agendas.append(agenda)
+                
 
     def lista_agenda(self):
         try:
             if len(self.__agenda_DAO.get_all()) != 0:
                 dados_agendas = []
                 for agenda in self.__agenda_DAO.get_all():
-                    #self.__tela_agenda.mostra_agenda({"nome": agenda.nome, "telefone": agenda.telefone, "cpf": agenda.cpf})
+                    
                     dados_agendas.append(
                         {"dia_semana": agenda.dia_semana, "nome_banda": agenda.banda.nome})
                 self.__tela_agenda.mostra_agenda(dados_agendas)
@@ -116,8 +104,6 @@ class ControladorAgenda():
 
     def excluir_banda_agenda(self):
         self.lista_agenda()
-        #dia_semana = self.__tela_agenda.seleciona_agenda()
-        #agenda = self.pega_banda_por_dia_semana(dia_semana)
 
         dia_semana = self.__tela_agenda.seleciona_agenda()
 
@@ -133,7 +119,7 @@ class ControladorAgenda():
         try:
             if (agenda is not None):
                 self.__agenda_DAO.remove(agenda.dia_semana)
-                #self.__agendas.remove(agenda)
+                
                 self.lista_agenda()
             else:
                 raise AgendaNaoExistenteException

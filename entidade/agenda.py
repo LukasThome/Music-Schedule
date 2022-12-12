@@ -1,5 +1,5 @@
 from entidade.banda import Banda
-from entidade.dia_semana import DiaSemana
+
 
 class Agenda:
 

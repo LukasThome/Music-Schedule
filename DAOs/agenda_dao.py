@@ -1,7 +1,6 @@
 from DAOs.dao import DAO
 from entidade.agenda import Agenda
 
-#cada entidade terá uma classe dessa, implementação bem simples.
 class AgendaDAO(DAO):
     def __init__(self):
         super().__init__('agendas.pkl')

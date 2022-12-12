@@ -18,23 +18,14 @@ class ControladorReservas():
         self.__controlador_sistema = controlador_sistema
         self.__reserva_DAO = ReservaDAO()
 
-        ###reservas pre-definidas para teste###
-        #cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("778899")
-        #reserva01 = Reserva(cliente, "777", 6, "TER")
-        #cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("774411")
-        #reserva02 = Reserva(cliente, "888", 3, "QUA")
-        #cliente = self.__controlador_sistema.controlador_clientes.pega_cliente_por_cpf("774411")
-        #reserva03 = Reserva(cliente, "999", 4, "QUI")
-        ### ------------------ ###
-    
-        #self.__reservas = [reserva01, reserva02, reserva03]
+       
         
         self.__tela_reserva = TelaReserva()
     
     # pegar reserva por dia da semana e contabiliza o total de clientes
     def pega_reserva_por_codigo(self, codigo: str):
         for reserva in self.__reserva_DAO.get_all():
-        #for reserva in self.__reservas:
+       
             if (reserva.codigo == codigo):
                 return reserva
         return None
@@ -99,16 +90,11 @@ class ControladorReservas():
                 raise ClienteNaoExistenteException
         except ClienteNaoExistenteException as e:
             self.__tela_reserva.mostra_mensagem(e)
-
-
         
         if ehInteiro == True and dia_valido == True and existe_cliente == True:
             reserva = Reserva(cliente, str(codigo), numero_pessoas, dia_semana)
             self.__reserva_DAO.add(reserva)
-            #self.__reservas.append(reserva)
-            
 
-    # Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
     def lista_reserva(self):
         try:
             if len(self.__reserva_DAO.get_all()) != 0:
@@ -120,7 +106,6 @@ class ControladorReservas():
                 raise ReservaListaVaziaException
         except ReservaListaVaziaException as e:
             self.__tela_reserva.mostra_mensagem(e)
-            
            
     def excluir_reserva(self):
         self.lista_reserva()
@@ -128,8 +113,8 @@ class ControladorReservas():
         reserva = self.pega_reserva_por_codigo(codigo_reserva)
         try:
             if (reserva is not None):
-                self.reserva.remove(reserva.codigo)
-               # self.__reservas.remove(reserva)
+                self.__reserva_DAO.remove(reserva.codigo)
+               
                 self.lista_reserva()
             else:
                 raise ReservaNaoExistenteException

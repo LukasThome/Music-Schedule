@@ -1,7 +1,6 @@
 from DAOs.dao import DAO
 from entidade.relatorio import Relatorio
 
-#cada entidade terá uma classe dessa, implementação bem simples.
 class RelatorioDAO(DAO):
     def __init__(self):
         super().__init__('relatorios.pkl')

@@ -4,8 +4,7 @@ from exceptions.bandaDuplicada import BandaDuplicadaException
 from exceptions.bandaNaoExistente import BandaNaoExistenteException
 from exceptions.bandaListaVazia import BandaListaVaziaException
 from DAOs.banda_dao import BandaDAO
-# ATENÇAO! Nesta classe não estão sendo tratados todos os possíveis problemas.
-# é necessário fazer tratamento de exceções em todos os casos!
+
 
 
 class ControladorBandas():
@@ -13,18 +12,13 @@ class ControladorBandas():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__banda_DAO = BandaDAO()
-        ### bandas pre definidas para teste###
-        #banda01 = Banda("Greta Van Fleet", "112", "Rock")
-        #banda02 = Banda("The Strokes", "113", "Rock")
-        #banda03 = Banda("Metallica", "114", "Metal")
-        ### ------ ###
-        #self.__bandas = [banda01, banda02, banda03]
+       
 
         self.__tela_banda = TelaBanda()
 
     def pega_banda_por_telefone(self, telefone: str):
         for banda in self.__banda_DAO.get_all():
-        #for banda in self.__bandas:
+        
             if (banda.telefone == telefone):
                 return banda
         return None
@@ -33,16 +27,18 @@ class ControladorBandas():
         dados_banda = self.__tela_banda.pega_dados_banda()
         banda = self.pega_banda_por_telefone(dados_banda["telefone"])
         
-        void = False
+        void = bool
         
         if dados_banda["nome"] == "" or dados_banda["telefone"] == "" or dados_banda["estilo"] == "":
             void = True
+        else:
+            void = False
 
         try:
             if banda == None and void == False:
                 banda = Banda(
                     dados_banda["nome"], dados_banda["telefone"], dados_banda["estilo"])
-                #self._bandadados_bandas.append(banda)
+            
                 self.__banda_DAO.add(banda)
             else:
                 raise BandaDuplicadaException
@@ -62,14 +58,15 @@ class ControladorBandas():
                 banda.nome = novos_dados_banda["nome"]
                 banda.telefone = novos_dados_banda["telefone"]
                 banda.estilo = novos_dados_banda["estilo"]
+                self.__banda_DAO.update(banda)
                 self.lista_banda()
+                
             else:
                 raise BandaNaoExistenteException
 
         except BandaNaoExistenteException as e:
              self.__tela_banda.mostra_mensagem(e)
 
-    # Sugestão: se a lista estiver vazia, mostrar a mensagem de lista vazia
     def lista_banda(self):
 
         try:
@@ -77,8 +74,7 @@ class ControladorBandas():
                 dados_bandas = []
                 
                 for banda in self.__banda_DAO.get_all():
-                #for banda in self.__bandas:
-                    #self.__tela_banda.mostra_banda({"nome": banda.nome, "telefone": banda.telefone, "telefone": banda.telefone})
+                
                     dados_bandas.append({"nome": banda.nome, "telefone": banda.telefone, "estilo": banda.estilo})
                 self.__tela_banda.mostra_banda(dados_bandas)               
                 
@@ -96,7 +92,7 @@ class ControladorBandas():
         try:
             if (banda is not None):
                 self.__banda_DAO.remove(banda.telefone)
-                #self.__bandas.remove(banda)
+               
                 self.lista_banda()
             else:
                 raise BandaNaoExistenteException
